@@ -11,13 +11,13 @@ Docker and Docker Compose should be installed on your machine.
 1. Clone the repository and navigate to the root directory of the project.
 
 2. Starting the database container:
-    `docker-compose up -d flask_db`
+    `docker-compose up -d benford_db`
 
 3. Building the images
     `docker-compose build`
 
 4. Once database is running, start the flask_app container
-    `docker-compose up flask_app`
+    `docker-compose up benford_app`
 
 The webpage should be accessible at port 5000
 
