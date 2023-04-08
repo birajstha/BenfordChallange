@@ -10,9 +10,6 @@ def save_data(data_dao, data_uploaded):
 
         try:
           data_uploaded.save(data_path)
-          db.session.add(data_dao)
-          db.session.commit()
-          flash("Data Saved on Database")
           return data_path
         
         except Exception as e:

@@ -16,9 +16,7 @@ Docker and Docker Compose should be installed on your machine.
 3. Building the images
     `docker-compose build`
 
-4. Once database is running, start the flask_app container
+4. Once database is running, start the benford_app container
     `docker-compose up benford_app`
 
-The webpage should be accessible at port 5000
-
-docker run -p 5000:5000 birajstha/benford_app
+The webpage should be accessible at http://localhost:5000

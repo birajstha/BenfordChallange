@@ -40,11 +40,14 @@ def home():
                 
                 if data_column in headers:   
                     try:         
-                        check_None = calculate_and_plot_benford(data_path, headers.index(data_column), f_name)
+                        check_None = calculate_and_plot_benford(data_dao, data_path, headers.index(data_column), f_name)
                         if check_None != None:
                             return redirect(url_for('benfordapp.benford', filename=f_name))
                     except Exception as e:
                         flash("Sorry, Looks like Data is not valid.")
+                        check_None = calculate_and_plot_benford(data_dao, data_path, headers.index(data_column), f_name)
+                        if check_None != None:
+                            return redirect(url_for('benfordapp.benford', filename=f_name))
                         return render_template('home.html', title='Home', form=form)
                     
                 else:
