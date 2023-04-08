@@ -1,18 +1,18 @@
 version: "3.9"
 
 services:
-  flask_app:
-    container_name: flask_app
+  benford_app:
+    container_name: benford_app
     image: biraj/benford_app:1.0.0
     build: .
     ports:
       - "5000:5000"
     environment:
-      - DB_URL=postgresql://postgres:postgres@flask_db:5432/postgres
+      - DB_URL=postgresql://postgres:postgres@benford_db:5432/postgres
     depends_on:
-      - flask_db
-  flask_db:
-    container_name: flask_db
+      - benford_db
+  benford_db:
+    container_name: benford_db
     image: postgres:12
     ports:
       - "5432:5432"

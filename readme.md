@@ -21,3 +21,4 @@ Docker and Docker Compose should be installed on your machine.
 
 The webpage should be accessible at port 5000
 
+docker run -p 5000:5000 birajstha/benford_app
