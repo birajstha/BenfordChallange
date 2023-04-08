@@ -1,6 +1,6 @@
-## How to Run this Flask App with Docker Compose
+## How to Run this Web App with Docker Compose
 
-To run the Flask App with Docker Compose, follow the instructions below.
+To run the App with Docker Compose, follow the instructions below.
 
 ### Prerequisites
 
