@@ -1,0 +1,14 @@
+{% extends "layout.html"%}
+
+{% block content %}
+    {% if filename %}
+        <div class="content-section">
+            <h1>Success!</h1>
+            <p>The uploaded data follows Benford's law. Isn't that AWESOME ? </p>
+            <br></br>
+            <p>Here below is the graph of observed data versus expected data.</p>
+            
+            <img class="responsive" src="{{ url_for('static', filename='plots/' + filename +'.png') }}">
+        </div>
+    {% endif %}
+{% endblock content %}

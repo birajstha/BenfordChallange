@@ -1,0 +1,45 @@
+{% extends "layout.html"%}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                Challenge: Benford's Law
+                <h6>
+                    In 1938, Frank Benford published a paper showing the distribution of the leading digit in many
+                    disparate sources of data. In all these sets of data, the number 1 was the leading digit about 30%
+                    of the time. Benford's law has been found to apply to population numbers, death rates, lengths of
+                    rivers, mathematical distributions given by some power law, and physical constants like atomic
+                    weights and specific heats.
+                    </br>
+                    </br>
+                    This is an application to calculate and plot if a dataset follows Benford's law
+                </h6>
+            </legend>
+            <div class="form-group">
+                <h4>
+                    {{ form.file.label() }}
+                    {{ form.file(class="form-control-file") }}
+                    </br>
+                    {{ form.data_column.label() }}
+                    {{ form.data_column(class="form-control-file") }}
+
+                </h4>
+                {% if form.file.errors %}
+                {% for error in form.file.errors %}
+                <span class="text-danger">{{ error }}</span></br>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+
+
+</div>
+{% endblock content %}

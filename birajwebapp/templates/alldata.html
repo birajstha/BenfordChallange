@@ -1,0 +1,28 @@
+{% extends "layout.html"%}
+
+{% block content %}
+ 
+<div class="content-section">
+    <table class = "table-bordered responsive">
+    <thead>
+        <tr>
+            <th>Date Uploaded</th>
+            <th>File Name</th>
+            <th>Data column</th>
+            <th>View Plot</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in all_uploaded_data %}
+    <tr>
+        <td>{{ item.date_uploaded }}</td>
+        <td>{{ item.file_name}}</td>
+        <td>{{ item.data_column }}</td>
+        <td><a class ="btn btn-outline-info" href="{{ url_for('benfordapp.benford', filename=item.file_name)}}">view</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock content %}
