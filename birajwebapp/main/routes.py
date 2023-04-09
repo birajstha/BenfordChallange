@@ -4,6 +4,7 @@ from birajwebapp.entity.utils import save_data
 from birajwebapp.benfordapp.calc_benford import calculate_and_plot_benford
 from birajwebapp.models import Data
 from os import path
+from birajwebapp.logging.logger import log_debug, log_error
 
 
 main = Blueprint('main', __name__)
@@ -32,8 +33,9 @@ def home():
                 try:
                     with open(data_path, 'r') as f:
                         raw_data = f.readlines()
-                except FileNotFoundError:
+                except FileNotFoundError as f:
                     flash("File not found, Try uploading again!")
+                    log_debug(f)
                 
                 headers = raw_data[0].split("\t")
                 headers = [header.strip() for header in headers]
@@ -45,13 +47,16 @@ def home():
                             return redirect(url_for('benfordapp.benford', filename=f_name))
                     except Exception as e:
                         flash("Sorry, Looks like Data is not valid.")
+                        log_debug(e)
                         check_None = calculate_and_plot_benford(data_dao, data_path, headers.index(data_column), f_name)
                         if check_None != None:
+                            log_error("None returned from calculate_and_plot_benford")
                             return redirect(url_for('benfordapp.benford', filename=f_name))
                         return render_template('home.html', title='Home', form=form)
                     
                 else:
                     flash(f"Data Column doesn't exist. Please select from {headers}")
+                    log_error("Wrong headers selected")
                     return render_template('home.html', title='Home', form=form)
 
     return render_template('home.html', title='Home', form=form)

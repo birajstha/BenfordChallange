@@ -1,4 +1,5 @@
 import os
+import logging
 
 class Config:
     """
@@ -33,3 +34,6 @@ class Config:
     This flag is used to disable the modification tracker of the Flask-SQLAlchemy 
     extension to save memory and improve performance.
     """
+
+    LOG_FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logging/benford_app.log')
+    LOG_LEVEL=logging.DEBUG

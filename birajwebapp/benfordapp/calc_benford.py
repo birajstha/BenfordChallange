@@ -3,6 +3,7 @@ from matplotlib.figure import Figure
 from flask import flash, redirect, url_for
 from birajwebapp.config import Config
 from birajwebapp.entity.utils import db
+from birajwebapp.logging.logger import log_debug, log_error
 
 def get_first_digit(num):
     """
@@ -50,6 +51,7 @@ def calculate_benfords_law_distribution(data):
         return expected, observed
 
     except Exception as e:
+        log_debug(e)
         flash("Invalid Data. Try again! ")
         return None, None
 
@@ -74,7 +76,11 @@ def plot_benfords_law(expected, observed, f_name):
     ax.set_ylabel('Frequency')
     ax.set_title('Benford\'s Law')
     ax.legend()
-    fig.savefig(f"{Config.PLOTS_DIR}/{f_name}.png")
+    try:
+        fig.savefig(f"{Config.PLOTS_DIR}/{f_name}.png")
+    except Exception as e:
+        log_debug(e)
+        return redirect(url_for('benfordapp.benford'))
     return fig
 
 
@@ -117,6 +123,7 @@ def calculate_and_plot_benford(data_dao, path, data_index, f_name):
         data = [lines[1].split("\t")[data_index] for lines in enumerate(raw_data)]
         expected, observed = calculate_benfords_law_distribution(data)
         if not validate_benford(observed):
+            log_error("Data not validated")
             flash("The data does not follow Benford's Law")
             return redirect(url_for('benfordapp.benford'))
         db.session.add(data_dao)
@@ -124,12 +131,14 @@ def calculate_and_plot_benford(data_dao, path, data_index, f_name):
         flash("Data Saved on Database")
         return plot_benfords_law(expected, observed, f_name)
     
-    except FileNotFoundError:
+    except FileNotFoundError as f:
         flash("File not found, Try uploading again!")
+        log_debug(f)
         return None
     
-    except Exception:
+    except Exception as e:
         flash("Sorry, But data don't look right ! Please check again")
+        log_debug(e)
         return None
     
     
